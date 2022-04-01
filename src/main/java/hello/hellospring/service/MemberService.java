@@ -3,7 +3,6 @@ package hello.hellospring.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.stereotype.Service;
 
 import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemberRepository;
