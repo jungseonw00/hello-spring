@@ -1,4 +1,4 @@
-package service;
+package hello.hellospring.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -15,43 +15,43 @@ class MemberServiceTest {
 
 	MemberService memberService;
 	MemoryMemberRepository memberRepository;
-	
+
 	@BeforeEach
 	public void beforeEach() {
 		memberRepository = new MemoryMemberRepository();
 		memberService = new MemberService(memberRepository);
 	}
-	
+
 	@AfterEach
 	public void afterEach() {
 		memberRepository.clearStore();
 	}
-	
-	//Test는 메소드 이름을 직관적으로 한글로 적어도 된다.
+
+	// Test는 메소드 이름을 직관적으로 한글로 적어도 된다.
 	@Test
 	void 회원가입() {
-		//given
+		// given
 		Member member = new Member();
 		member.setName("hello");
-		
-		//when
+
+		// when
 		Long saveId = memberService.join(member);
-		
-		//then
+
+		// then
 		Member findMember = memberService.findOne(saveId).get();
 		assertThat(member.getName()).isEqualTo(findMember.getName());
 	}
-	
+
 	@Test
 	public void 중복_회원_예외() {
-		//given
+		// given
 		Member member1 = new Member();
 		member1.setName("spring");
-		
+
 		Member member2 = new Member();
 		member2.setName("spring");
-		
-		//when
+
+		// when
 		memberService.join(member1);
 		IllegalStateException e = assertThrows(IllegalStateException.class, () -> memberService.join(member2));
 		assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
@@ -60,12 +60,12 @@ class MemberServiceTest {
 		 * try { memberService.join(member2); fail(); } catch (IllegalStateException e)
 		 * { assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다."); }
 		 */
-		
-		//then
+
+		// then
 	}
-	
+
 	@Test
 	void findOne() {
-		
+
 	}
 }
